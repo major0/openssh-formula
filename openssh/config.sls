@@ -62,4 +62,20 @@ ssh_host_{{ keyType }}_key.pub:
     - require_in:
       - service: {{ openssh.service }}
 {% endif %}
+
+{% if salt['pillar.get']('openssh:absent_' ~ keyType ~ '_certs', False) %}
+ssh_host_{{ keyType }}_cert:
+  file.absent:
+    - name: /etc/ssh/ssh_host_{{ keyType }}_key-cert.pub
+
+{% elif salt['pillar.get']('openssh:provide_' ~ keyType ~ '_certs', False) %}
+ssh_host_{{ keyType }}_cert:
+  file.managed:
+    - name: /etc/ssh/ssh_host_{{ keyType }}_key-cert.pub
+    - contents_pillar: 'openssh:{{ keyType }}:signed_cert'
+    - user: root
+    - mode: 600
+    - require_in:
+      - service: {{ openssh.service }}
+{% endif %}
 {% endfor %}

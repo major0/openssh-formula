@@ -54,6 +54,7 @@
 {{ option_default_uncommented('Protocol', 2) }}
 # HostKeys for protocol version 2
 {{ option_default_uncommented('HostKey', ['/etc/ssh/ssh_host_rsa_key', '/etc/ssh/ssh_host_dsa_key', '/etc/ssh/ssh_host_ecdsa_key', '/etc/ssh/ssh_host_ed25519_key']) -}}
+{{ option('HostCertificate', ['/etc/ssh/ssh_host_rsa_key-cert.pub', '/etc/ssh/ssh_host_dsa_key-cert.pub', '/etc/ssh/ssh_host_ecdsa_key-cert.pub', '/etc/ssh/ssh_host_ed25519_key-cert.pub']) -}}
 
 #Privilege Separation is turned on for security
 {{ option_default_uncommented('UsePrivilegeSeparation', 'yes') }}
